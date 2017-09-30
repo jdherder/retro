@@ -1,0 +1,18 @@
+@import '../../../scss/vars';
+@import '../../../scss/mixins';
+@import '../../../scss/functions';
+
+.board {
+
+}
+
+.board__swim-lanes {
+  display: flex;
+  justify-content: space-between;
+  padding: unit($std-pad);
+
+  app-swim-lane {
+    flex: 1;
+    margin: unit($std-pad);
+  }
+}

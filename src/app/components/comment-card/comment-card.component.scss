@@ -1,0 +1,28 @@
+@import '../../../scss/vars';
+@import '../../../scss/mixins';
+@import '../../../scss/functions';
+
+.comment-card {
+  background-color: $neutral-light;
+  margin-bottom: unit($std-pad);
+  padding: unit($std-pad);
+}
+
+.comment-card__reactions {
+  opacity: .5;
+}
+
+.comment-card__reaction {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+
+  > img {
+    width: 18px;
+  }
+
+  > span {
+    display: block;
+    margin-left: 5px;
+  }
+}

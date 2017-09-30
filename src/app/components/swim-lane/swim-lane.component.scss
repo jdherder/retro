@@ -1,0 +1,15 @@
+@import '../../../scss/vars';
+@import '../../../scss/mixins';
+@import '../../../scss/functions';
+
+.swim-lane {
+  border: 1px solid $neutral-dark;
+}
+
+.swim-lane__title {
+  padding: 0 unit($std-pad) 0;
+}
+
+.swim-lane__cards {
+
+}

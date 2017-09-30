@@ -1,1 +1,19 @@
+//scss imports (no css output)
+@import './scss/vars';
+
+//resets
 @import './scss/normalize';
+
+//fonts
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700');
+
+//global styles
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  color: $neutral-dark;
+  font-size: $base-font-size;
+  font-family: 'Montserrat', sans-serif;
+}

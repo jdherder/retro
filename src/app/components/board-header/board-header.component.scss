@@ -1,0 +1,17 @@
+@import '../../../scss/vars';
+@import '../../../scss/mixins';
+@import '../../../scss/functions';
+
+.board-header {
+  background-color: $accent-bold;
+  padding: unit($std-pad);
+}
+
+.board-header__title {
+  color: $accent-light;
+  font-size: unit(32);
+}
+
+.board-header__desc {
+  color: $neutral-light;
+}
