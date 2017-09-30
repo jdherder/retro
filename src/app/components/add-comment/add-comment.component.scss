@@ -1,0 +1,19 @@
+@import '../../../scss/vars';
+@import '../../../scss/mixins';
+@import '../../../scss/functions';
+
+.add-comment {
+  display: flex;
+  justify-content: flex-end;
+  padding: unit($std-pad);
+}
+
+.add-comment__btn {
+  background: none;
+  border: none;
+  color: $neutral-dark;
+  cursor: pointer;
+  font-size: unit(14);
+  outline: none;
+  user-select: none;
+}

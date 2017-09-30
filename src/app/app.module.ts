@@ -8,6 +8,7 @@ import { BoardComponent } from './components/board/board.component';
 import { SwimLaneComponent } from './components/swim-lane/swim-lane.component';
 import { BoardHeaderComponent } from './components/board-header/board-header.component';
 import { CommentCardComponent } from './components/comment-card/comment-card.component';
+import { AddCommentComponent } from './components/add-comment/add-comment.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { CommentCardComponent } from './components/comment-card/comment-card.com
     BoardComponent,
     SwimLaneComponent,
     BoardHeaderComponent,
-    CommentCardComponent
+    CommentCardComponent,
+    AddCommentComponent
   ],
   imports: [
     BrowserModule

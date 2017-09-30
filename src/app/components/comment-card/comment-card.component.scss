@@ -5,11 +5,13 @@
 .comment-card {
   background-color: $neutral-light;
   margin-bottom: unit($std-pad);
-  padding: unit($std-pad);
+  padding: unit($std-pad) unit($std-pad) 0;
 }
 
 .comment-card__reactions {
+  border-top: 1px solid rgba($neutral-dark, 0.5);
   opacity: .5;
+  padding: unit($std-pad / 2);
 }
 
 .comment-card__reaction {
