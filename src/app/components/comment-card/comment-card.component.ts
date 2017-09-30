@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Schema } from '../../interfaces/schema';
 
 @Component({
   selector: 'app-comment-card',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./comment-card.component.scss']
 })
 export class CommentCardComponent implements OnInit {
+  @Input() comment: Schema.CommendCard;
 
   constructor() { }
 

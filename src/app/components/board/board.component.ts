@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy  } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
+import { Schema } from '../../interfaces/schema';
 
 import 'rxjs/add/operator/do';
 
@@ -13,31 +14,33 @@ import 'rxjs/add/operator/do';
 export class BoardComponent implements OnInit, OnDestroy {
 
   id: any;
-  private sub: any;
-  items: Observable<any[]>;
+  lanes: Schema.Lane[];
+  private routerSub: any;
+  private dbSub: any;
   
   constructor(
     private db: AngularFireDatabase,
     private route: ActivatedRoute,
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
+    this.routerSub = this.route.params.subscribe(params => {
       this.id = params['id'];
-      console.log('id:', this.id);
-      
       this.loadData(this.id);
    });
   }
 
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    this.routerSub.unsubscribe();
+    this.dbSub.unsubscribe();
   }
 
   loadData(id: any) {
-    this.items = this.db.object(id).do(data => {
-      console.log('josh', data);
-    });
+    this.dbSub = this.db.object(id)
+      .subscribe(data => {
+        console.log('josh', data);
+        this.lanes = Object.values(data.lanes);
+      });
   }
 
 }
