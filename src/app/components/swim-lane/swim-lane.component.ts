@@ -20,7 +20,22 @@ export class SwimLaneComponent implements OnChanges {
   ) { }
 
   ngOnChanges() {
-    this.commentKeyValuePairs = this.db.keyValueObj(this.laneValue.comments);
+    const commentKeyValuePairs = this.db.keyValueObj(this.laneValue.comments);
+
+    // sort most liked comments to the top (most to least)
+    commentKeyValuePairs.sort((a, b) => {
+      if (a.value.likes < b.value.likes) {
+        return 1;
+      }
+      
+      if (a.value.likes > b.value.likes) {
+        return -1;
+      }
+
+      return 0;
+    });
+    
+    this.commentKeyValuePairs = commentKeyValuePairs;
   }
 
 }
