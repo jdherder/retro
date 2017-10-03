@@ -86,8 +86,8 @@ export class DatabaseService {
     return name.replace(/[^a-z0-9]/g, (s) => {
       let c = s.charCodeAt(0);
       if (c == 32) return '-';
-      if (c >= 65 && c <= 90) return '_' + s.toLowerCase();
-      return '__' + ('000' + c.toString(16)).slice(-4);
+      if (c >= 65 && c <= 90) return s.toLowerCase();
+      return ('000' + c.toString(16)).slice(-4);
     });
 }
 
