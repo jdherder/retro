@@ -1,9 +1,9 @@
 <div class="comment-card">
-  <p>{{ comment.comment }}</p>
+  <p>{{ commentValue.comment }}</p>
   <div class="comment-card__reactions">
-    <div class="comment-card__reaction comment-card_reaction--like">
+    <div (click)="like()" class="comment-card__reaction comment-card_reaction--like">
       <img src="../../assets/icons/thumbs-up.svg">
-      <span>{{ comment.likes }}</span>
+      <span>{{ commentValue.likes }}</span>
     </div>
   </div>
 </div>

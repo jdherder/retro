@@ -3,6 +3,7 @@ import { RouterModule, Routes }  from '@angular/router';
 
 // Components
 import { BoardComponent } from './components/board/board.component';
+import { NewBoardComponent } from './components/new-board/new-board.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 // Services
@@ -11,7 +12,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 const parkRoutes: Routes = [
   {
     path: 'board',
-    component: BoardComponent,
+    component: NewBoardComponent,
     // resolve: {
     //   isAuth: AuthGuard,
     // },

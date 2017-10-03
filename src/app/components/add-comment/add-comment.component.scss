@@ -3,6 +3,10 @@
 @import '../../../scss/functions';
 
 .add-comment {
+  
+}
+
+.add-comment__actions {
   display: flex;
   justify-content: flex-end;
   padding: unit($std-pad);
@@ -16,4 +20,19 @@
   font-size: unit(14);
   outline: none;
   user-select: none;
+}
+
+.add-comment__form {
+  background-color: $neutral-light;
+  padding: unit($std-pad);
+}
+
+.add-comment__textarea {
+  display: block;
+  margin-bottom: unit(10);
+  width: 100%;
+}
+
+.add-comment__submit {
+
 }

@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy  } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { ActivatedRoute } from '@angular/router';
 import { Schema } from '../../interfaces/schema';
 
-import 'rxjs/add/operator/do';
+import { DatabaseService } from '../../services/database.service';
 
 @Component({
   selector: 'app-board',
@@ -13,20 +13,20 @@ import 'rxjs/add/operator/do';
 })
 export class BoardComponent implements OnInit, OnDestroy {
 
-  id: any;
-  lanes: Schema.Lane[];
+  boardId: any;
+  laneKeyValuePairs: Schema.KeyValue[];
   private routerSub: any;
   private dbSub: any;
   
   constructor(
-    private db: AngularFireDatabase,
     private route: ActivatedRoute,
+    private db: DatabaseService,
   ) {}
 
   ngOnInit() {
     this.routerSub = this.route.params.subscribe(params => {
-      this.id = params['id'];
-      this.loadData(this.id);
+      this.boardId = params['id'];
+      this.loadData(this.boardId);
    });
   }
 
@@ -36,10 +36,10 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   loadData(id: any) {
-    this.dbSub = this.db.object(id)
+    this.dbSub = this.db.getBoard(id)
       .subscribe(data => {
-        console.log('josh', data);
-        this.lanes = Object.values(data.lanes);
+        console.log('board data', data);
+        this.laneKeyValuePairs = this.db.keyValueObj(data.lanes);
       });
   }
 

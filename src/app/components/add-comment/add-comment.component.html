@@ -1,3 +1,12 @@
 <div class="add-comment">
-  <button class="add-comment__btn">add comment</button>
+  <div class="add-comment__actions">
+      <button (click)="openCommentForm()" class="add-comment__btn">add comment</button>
+  </div>
+
+  <div *ngIf="addingComment" class="add-comment__form">
+    <form #commentForm="ngForm" (ngSubmit)="onSubmit()">
+      <textarea [(ngModel)]="comment" name="comment" class="add-comment__textarea"></textarea>
+      <button class="btn add-comment__submit" type="submit">Add</button>
+    </form>
+  </div>
 </div>

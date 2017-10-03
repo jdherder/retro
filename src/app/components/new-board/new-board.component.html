@@ -1,0 +1,10 @@
+<div class="new-board">
+  <p>Ready to get retrospective? Start a new board!</p>
+
+  <div class="new-board__form">
+    <form #newBoardForm="ngForm" (ngSubmit)="onSubmit()">
+      <input type="text" [(ngModel)]="boardName" name="board" class="new-board__text">
+      <button class="btn new-board__submit" type="submit">Start</button>
+    </form>
+  </div>
+</div>

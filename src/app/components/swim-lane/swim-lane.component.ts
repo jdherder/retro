@@ -1,20 +1,26 @@
 import { Component, OnChanges, Input } from '@angular/core';
 import { Schema } from '../../interfaces/schema';
 
+import { DatabaseService } from '../../services/database.service';
+
 @Component({
   selector: 'app-swim-lane',
   templateUrl: './swim-lane.component.html',
   styleUrls: ['./swim-lane.component.scss']
 })
 export class SwimLaneComponent implements OnChanges {
-  @Input() lane: Schema.Lane;
+  @Input() boardId: any;
+  @Input() laneKey: any;
+  @Input() laneValue: Schema.Lane;
 
-  comments: Schema.CommendCard[];
+  commentKeyValuePairs: Schema.KeyValue[] = [];
 
-  constructor() { }
+  constructor(
+    private db: DatabaseService,
+  ) { }
 
   ngOnChanges() {
-    this.comments = this.lane.comments ? Object.values(this.lane.comments) : [];
+    this.commentKeyValuePairs = this.db.keyValueObj(this.laneValue.comments);
   }
 
 }

@@ -3,7 +3,12 @@
   <app-board-header></app-board-header>
 
   <div class="board__swim-lanes">
-    <app-swim-lane [lane]="lane" *ngFor="let lane of lanes"></app-swim-lane>
+    <app-swim-lane
+      *ngFor="let lane of laneKeyValuePairs"
+      [boardId]="boardId"
+      [laneKey]="lane.key"
+      [laneValue]="lane.value">
+    </app-swim-lane>
   </div>
 
 </div>
