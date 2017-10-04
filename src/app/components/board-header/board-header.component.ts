@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Schema } from '../../interfaces/schema';
 
 @Component({
   selector: 'app-board-header',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./board-header.component.scss']
 })
 export class BoardHeaderComponent implements OnInit {
+  @Input() details: Schema.Details;
 
   constructor() { }
 

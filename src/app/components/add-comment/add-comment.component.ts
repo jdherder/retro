@@ -3,6 +3,8 @@ import { Schema } from '../../interfaces/schema';
 
 import { DatabaseService } from '../../services/database.service';
 
+/* FIXME: Refactor add-comment to be a modal or something detached from the changing data. Currently when firebase data is updated this comment gets rebuilt because it's living in a dynamic swim lane. */
+
 @Component({
   selector: 'app-add-comment',
   templateUrl: './add-comment.component.html',
@@ -28,6 +30,11 @@ export class AddCommentComponent implements OnInit {
 
   onSubmit() {
     console.log('SUBMIT', this.comment);
+
+    if (!this.comment) {
+      return false;
+    }
+
     this.db.addComment(this.comment, {
       boardId: this.boardId,
       laneKey: this.laneKey,

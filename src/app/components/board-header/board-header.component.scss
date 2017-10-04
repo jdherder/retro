@@ -4,6 +4,7 @@
 
 .board-header {
   background-color: $accent-bold;
+  min-height: unit(145);
   padding: unit($std-pad) unit($std-pad * 2) unit($std-pad);
 }
 

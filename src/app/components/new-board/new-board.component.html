@@ -3,8 +3,25 @@
 
   <div class="new-board__form">
     <form #newBoardForm="ngForm" (ngSubmit)="onSubmit()">
-      <input type="text" [(ngModel)]="boardName" name="board" class="new-board__text">
-      <button class="btn new-board__submit" type="submit">Start</button>
+      <div class="new-board__row">
+        <input
+          [(ngModel)]="boardName"
+          type="text"
+          name="board"
+          placeholder="Name"
+          class="new-board__text input-field">
+      </div>
+      <div class="new-board__row">
+        <input
+          [(ngModel)]="boardDesc"
+          type="text"
+          name="boardDesc"
+          placeholder="Description"
+          class="new-board__text input-field">
+      </div>
+      <div class="new-board__row">
+        <button class="btn btn--inverse new-board__submit" type="submit">Start</button>
+      </div>
     </form>
   </div>
 </div>

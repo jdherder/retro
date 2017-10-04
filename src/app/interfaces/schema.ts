@@ -11,6 +11,11 @@ namespace Schema {
     commentKey?: any;
   }
 
+  export interface Details {
+    name: string;
+    description: string;
+  }
+
   export interface Lane {
     name: string;
     order: number;

@@ -10,8 +10,12 @@ export class DatabaseService {
     private db: AngularFireDatabase,
   ) {}
 
-  getBoard(id: any): Observable<any> {
-    return this.db.object(id);
+  getBoard(boardId: any): Observable<any> {
+    return this.db.object(boardId);
+  }
+
+  getBoardDetails(boardId: any) {
+    return this.db.object(`${boardId}/details`);
   }
 
   newBoard(boardId: any, name: string, description: string) {

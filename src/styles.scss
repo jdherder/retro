@@ -1,5 +1,6 @@
 //scss imports (no css output)
 @import './scss/vars';
+@import './scss/functions';
 
 //resets
 @import './scss/normalize';
@@ -16,4 +17,36 @@ html, body {
   color: $neutral-dark;
   font-size: $base-font-size;
   font-family: 'Montserrat', sans-serif;
+}
+
+.btn {
+  background: $accent-bold;
+  border: 0;
+  color: $accent-light;
+  cursor: pointer;
+  font-size: unit(16);
+  height: unit(40);
+  line-height: unit(40);
+  overflow: visible;
+  padding: 0 unit(10);
+
+  &:hover {
+    background: $neutral-dark;
+    color: $neutral-light;
+  }
+
+  &.btn--inverse {
+    background: $accent-light;
+    color: $accent-bold;
+
+    &:hover {
+      background: $neutral-light;
+      color: $neutral-dark;
+    }
+  }
+}
+
+.input-field {
+  height: unit(40);
+  outline: none;
 }

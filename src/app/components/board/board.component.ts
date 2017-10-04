@@ -15,6 +15,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   boardId: any;
   laneKeyValuePairs: Schema.KeyValue[];
+  details: Schema.Details;
   private routerSub: any;
   private dbSub: any;
   
@@ -39,6 +40,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.dbSub = this.db.getBoard(id)
       .subscribe(data => {
         console.log('board data', data);
+        this.details = data.details;
         this.laneKeyValuePairs = this.db.keyValueObj(data.lanes);
       });
   }
