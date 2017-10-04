@@ -6,7 +6,7 @@
 
   <div class="board__swim-lanes">
     <app-swim-lane
-      *ngFor="let lane of laneKeyValuePairs"
+      *ngFor="let lane of laneKeyValuePairs; trackBy: trackByFn"
       [boardId]="boardId"
       [laneKey]="lane.key"
       [laneValue]="lane.value">
