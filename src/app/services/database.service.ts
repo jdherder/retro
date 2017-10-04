@@ -33,8 +33,16 @@ export class DatabaseService {
   }
 
   setCommentLikes(value: number, loc: Schema.DbLocation) {
+    const hasLiked = this.getLocal(loc.commentKey);
+
+    if (hasLiked) {
+      return;
+    }
+
     this.db.object(`${loc.boardId}/lanes/${loc.laneKey}/comments/${loc.commentKey}`)
       .update({ likes: value });
+      
+    this.saveLocal(loc.commentKey, true);
   }
 
   keyValueObj(data: Object) {
@@ -86,7 +94,6 @@ export class DatabaseService {
     };
   }
 
-  // TODO: Make this better...
   makeSafeName(name) {
     return name.replace(/[^a-z0-9]/g, (s) => {
       let c = s.charCodeAt(0);
@@ -94,6 +101,13 @@ export class DatabaseService {
       if (c >= 65 && c <= 90) return s.toLowerCase();
       return '';
     });
-}
+  }
 
+  getLocal(key: string) {
+    return JSON.parse(window.localStorage.getItem(key));
+  }
+
+  saveLocal(key: string, data: any) {
+    window.localStorage.setItem(key, JSON.stringify(data));
+  }
 }
