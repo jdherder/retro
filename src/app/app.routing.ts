@@ -26,7 +26,7 @@ const parkRoutes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'board/123', // FIXME: THIS IS FOR TESTING
+    redirectTo: 'board',
     pathMatch: 'full',
   },
   {
