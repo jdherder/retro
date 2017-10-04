@@ -25,6 +25,7 @@ namespace Schema {
   export interface CommendCard {
     comment: string;
     likes: number;
+    date: string; // ISO
   }
   
 }

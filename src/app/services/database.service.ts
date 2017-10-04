@@ -27,7 +27,8 @@ export class DatabaseService {
     this.db.object(`${loc.boardId}/lanes/${loc.laneKey}/comments/${this.guid()}`)
       .set({
         comment: value,
-        likes: 0
+        likes: 0,
+        date: new Date().toISOString(),
       });
   }
 
@@ -91,7 +92,7 @@ export class DatabaseService {
       let c = s.charCodeAt(0);
       if (c == 32) return '-';
       if (c >= 65 && c <= 90) return s.toLowerCase();
-      return ('000' + c.toString(16)).slice(-4);
+      return '';
     });
 }
 
