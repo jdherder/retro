@@ -39,6 +39,13 @@ export class AddCommentComponent implements OnInit {
       boardId: this.boardId,
       laneKey: this.laneKey,
     });
+
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.addingComment = false;
+    this.comment = '';
   }
 
 }
