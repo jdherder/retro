@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy  } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs/observable';
+import { Subscription } from 'rxjs/subscription';
 import { ActivatedRoute } from '@angular/router';
 import { Schema } from '../../interfaces/schema';
 
@@ -13,11 +13,12 @@ import { DatabaseService } from '../../services/database.service';
 })
 export class BoardComponent implements OnInit, OnDestroy {
 
-  boardId: any;
-  laneKeyValuePairs: Schema.KeyValue[];
+  routeId: string;
   details: Schema.Details;
-  private routerSub: any;
-  private dbSub: any;
+  lanes$: Observable<Schema.Lane[]>;
+
+  private routerSub: Subscription;
+  private dataSub: Subscription;
   
   constructor(
     private route: ActivatedRoute,
@@ -25,28 +26,30 @@ export class BoardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.routerSub = this.route.params.subscribe(params => {
-      this.boardId = params['id'];
-      this.loadData(this.boardId);
-   });
+    this.routerSub = this.route.params
+      .subscribe(params => {
+        this.routeId = params['id'];
+        this.loadData(this.routeId);
+    });
   }
 
   ngOnDestroy() {
     this.routerSub.unsubscribe();
-    this.dbSub.unsubscribe();
+    this.dataSub.unsubscribe();
   }
 
-  loadData(id: any) {
-    // this.dbSub = this.db.getBoard(id)
-    //   .subscribe(data => {
-    //     console.log('board data', data);
-    //     this.details = data.details;
-    //     this.laneKeyValuePairs = this.db.keyValueObj(data.lanes);
-    //   });
+  loadData(routeId: string) {
+    this.dataSub = this.db.getBoard(routeId)
+      .subscribe(results => {
+        const board = results[0];
 
-    this.db.getBoard(id).subscribe(data => {
-      console.log('sub', data);
-    });
+        this.details = {
+          name: board.name,
+          description: board.description,
+        }
+
+        this.lanes$ = this.db.getLanes(board.id);
+      });
   }
 
   trackByFn(index, item) {

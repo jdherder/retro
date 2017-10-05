@@ -31,16 +31,16 @@ export class AddCommentComponent implements OnInit {
   onSubmit() {
     console.log('SUBMIT', this.comment);
 
-    if (!this.comment) {
-      return false;
-    }
+    // if (!this.comment) {
+    //   return false;
+    // }
 
-    this.db.addComment(this.comment, {
-      boardId: this.boardId,
-      laneKey: this.laneKey,
-    });
+    // this.db.addComment(this.comment, {
+    //   boardId: this.boardId,
+    //   laneKey: this.laneKey,
+    // });
 
-    this.resetForm();
+    // this.resetForm();
   }
 
   resetForm() {

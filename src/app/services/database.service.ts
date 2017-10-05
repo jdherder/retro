@@ -7,80 +7,92 @@ import { Schema } from '../interfaces/schema';
 export class DatabaseService {
 
   private boardsRef: AngularFireList<Schema.Board> = this.db.list('/boards');
+  private lanesRef: AngularFireList<Schema.Lane> = this.db.list('/lanes');
+  private commentsRef: AngularFireList<Schema.Comment> = this.db.list('/comments');
 
   constructor(
     private db: AngularFireDatabase,
   ) {
-    const test$ = this.db.list(
-      '/boards',
-      ref => {
-        console.log(ref);
-        return ref.orderByChild('id').equalTo('5e6f9ce1-3c37-4f38-bacd-134505ef15ac');
-      }
-    ).valueChanges();
-
-    test$.subscribe(data => {
-      console.log('josh', data);
-    });
+    // this.commentsRef.push({
+    //   id: this.uuid(),
+    //   laneId: 'b1f12d8e-a9db-11e7-abc4-cec278b6b50a',
+    //   boardId: '0008ec42-e3d8-4367-8635-d56c876d3902',
+    //   comment: 'Hey there! Hello World!',
+    //   likes: 4,
+    //   date: new Date().toISOString(),
+    // });
+    // this.commentsRef.push({
+    //   id: this.uuid(),
+    //   laneId: 'b1f12d8e-a9db-11e7-abc4-cec278b6b50a',
+    //   boardId: '0008ec42-e3d8-4367-8635-d56c876d3902',
+    //   comment: 'Hey there! Hello World!',
+    //   likes: 4,
+    //   date: new Date().toISOString(),
+    // });
+    // this.commentsRef.push({
+    //   id: this.uuid(),
+    //   laneId: 'b1f12d8e-a9db-11e7-abc4-cec278b6b50a',
+    //   boardId: '0008ec42-e3d8-4367-8635-d56c876d3902',
+    //   comment: 'Hey there! Hello World!',
+    //   likes: 4,
+    //   date: new Date().toISOString(),
+    // });
   }
 
-  getBoard(url: any): Observable<Schema.Board[]> {
-    // return this.db.object(boardId).valueChanges();
+  getBoard(routeId: string): Observable<Schema.Board[]> {
     return this.db.list(
-      '/boards',
-      ref => ref.orderByChild('url').equalTo(url)
+      'boards',
+      ref => ref.orderByChild('routeId').equalTo(routeId)
     ).valueChanges();
   }
 
-  getBoardDetails(boardId: any): Observable<Schema.Details> {
-    return this.db.object(`${boardId}/details`).valueChanges();
-  }
+  newBoard(routeId: string, name: string, description: string) {
+    const boardId = this.uuid();
 
-  newBoard(url: any, name: string, description: string) {
     this.boardsRef.push({
-      id: this.uuid(),
-      url,
+      id: boardId,
+      routeId,
       name,
       description,
     });
+
+    /* TODO: Move actions like this to cloud functions ? */
+
+    this.lanesRef.push({
+      id: this.uuid(),
+      boardId,
+      name: 'What went well',
+      order: 0,
+    });
+
+    this.lanesRef.push({
+      id: this.uuid(),
+      boardId,
+      name: 'What didn\'t go well',
+      order: 1,
+    });
+
+    this.lanesRef.push({
+      id: this.uuid(),
+      boardId,
+      name: 'What we could improve',
+      order: 2,
+    });
   }
 
-  // addComment(value: string, loc: Schema.DbLocation) {
-  //   this.db.object(`${loc.boardId}/lanes/${loc.laneKey}/comments/${this.uuid()}`)
-  //     .set({
-  //       comment: value,
-  //       likes: 0,
-  //       date: new Date().toISOString(),
-  //     });
-  // }
+  getLanes(boardId: string): Observable<Schema.Lane[]> {
+    return this.db.list(
+      'lanes',
+      ref => ref.orderByChild('boardId').equalTo(boardId)
+    ).valueChanges();
+  }
 
-  // setCommentLikes(value: number, loc: Schema.DbLocation) {
-  //   const hasLiked = this.getLocal(loc.commentKey);
-
-  //   if (hasLiked) {
-  //     return;
-  //   }
-
-  //   this.db.object(`${loc.boardId}/lanes/${loc.laneKey}/comments/${loc.commentKey}`)
-  //     .update({ likes: value });
-      
-  //   this.saveLocal(loc.commentKey, true);
-  // }
-
-  // keyValueObj(data: Object) {
-  //   if (!data) {
-  //     return [];
-  //   }
-
-  //   const keys = Object.keys(data);
-    
-  //   return keys.map((key) => {
-  //     return {
-  //       key,
-  //       value: data[key],
-  //     }
-  //   });
-  // }
+  getComments(laneId: string): Observable<Schema.Comment[]> {
+    return this.db.list(
+      'comments',
+      ref => ref.orderByChild('laneId').equalTo(laneId)
+    ).valueChanges();
+  }
 
   uuid() {
     function s4() {
@@ -92,29 +104,6 @@ export class DatabaseService {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
       s4() + '-' + s4() + s4() + s4();
   }
-
-  // buildDefaultBoardData(name: string, description: string) {
-  //   return {
-  //     details: {
-  //       name,
-  //       description,
-  //     },
-  //     lanes: {
-  //       [this.uuid()]: {
-  //         name: 'What went well',
-  //         order: 0,
-  //       },
-  //       [this.uuid()]: {
-  //         name: 'What didn\'t go well',
-  //         order: 1,
-  //       },
-  //       [this.uuid()]: {
-  //         name: 'What we could improve',
-  //         order: 2,
-  //       },
-  //     }
-  //   };
-  // }
 
   makeSafeName(name) {
     return name.replace(/[^a-z0-9]/g, (s) => {

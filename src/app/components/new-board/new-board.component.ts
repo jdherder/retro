@@ -23,24 +23,27 @@ export class NewBoardComponent implements OnInit {
   onSubmit() {
     const safeBoardId = this.db.makeSafeName(this.boardName);
 
-    const sub = this.db.getBoardDetails(safeBoardId)
-    .subscribe(data => {
-      console.log('boardDetails', data);
-      sub.unsubscribe();
+    // FIXME: Check for existance of a board first!
+    this.createBoard(safeBoardId);
 
-      if (!data.name) {
-        this.createBoard(safeBoardId);
-      } else {
-        // TODO: Expose error or update safeBoardId
-      }
-    });
+    // const sub = this.db.getBoardDetails(safeBoardId)
+    // .subscribe(data => {
+    //   console.log('boardDetails', data);
+    //   sub.unsubscribe();
+
+    //   if (!data.name) {
+    //     this.createBoard(safeBoardId);
+    //   } else {
+    //     // TODO: Expose error or update safeBoardId
+    //   }
+    // });
   }
 
-  createBoard(safeBoardId: any) {
-    this.db.newBoard(safeBoardId, this.boardName, this.boardDesc);
+  createBoard(routeId: any) {
+    this.db.newBoard(routeId, this.boardName, this.boardDesc);
 
     // TODO: Only navigate here on newBoard success...
-    this.router.navigate([`/board/${safeBoardId}`]);
+    this.router.navigate([`/board/${routeId}`]);
   }
 
 }

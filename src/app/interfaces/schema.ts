@@ -1,14 +1,10 @@
 namespace Schema {
 
-  export interface KeyValue {
-    key: any;
-    value: any;
-  }
-
-  export interface DbLocation {
-    boardId: any;
-    laneKey?: any;
-    commentKey?: any;
+  export interface Board {
+    id: string; // uuid
+    routeId: string;
+    name: string;
+    description: string;
   }
 
   export interface Details {
@@ -17,22 +13,19 @@ namespace Schema {
   }
 
   export interface Lane {
+    id: string;
+    boardId: string;
     name: string;
     order: number;
-    comments: CommendCard[];
   }
 
-  export interface CommendCard {
+  export interface Comment {
+    id: string;
+    laneId: string;
+    boardId: string;
     comment: string;
     likes: number;
     date: string; // ISO
-  }
-
-  export interface Board {
-    id: string; // uuid
-    url: string;
-    name: string;
-    description: string;
   }
   
 }

@@ -5,12 +5,10 @@
   </app-board-header>
 
   <div class="board__swim-lanes">
-    <!-- <app-swim-lane
-      *ngFor="let lane of laneKeyValuePairs; trackBy: trackByFn"
-      [boardId]="boardId"
-      [laneKey]="lane.key"
-      [laneValue]="lane.value">
-    </app-swim-lane> -->
+    <app-swim-lane
+      *ngFor="let lane of lanes$ | async; trackBy: trackByFn"
+      [lane]="lane">
+    </app-swim-lane>
   </div>
 
 </div>
