@@ -48,7 +48,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   trackByFn(index, item) {
-    return index;
+    return item.id;
   }
 
 }

@@ -19,7 +19,20 @@ export class SwimLaneComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.comments$ = this.db.getCommentsByLane(this.lane.id);
+    this.comments$ = this.db.getCommentsByLane(this.lane.id)
+      .map(comments => comments.sort(this.sortByLikes));
+  }
+
+  sortByLikes(a, b) {
+    if (a.likes < b.likes) {
+      return 1;
+    }
+    
+    if (a.likes > b.likes) {
+      return -1;
+    }
+
+    return 0;
   }
 
 }
