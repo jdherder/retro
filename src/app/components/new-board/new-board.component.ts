@@ -25,18 +25,6 @@ export class NewBoardComponent implements OnInit {
 
     // FIXME: Check for existance of a board first!
     this.createBoard(safeBoardId);
-
-    // const sub = this.db.getBoardDetails(safeBoardId)
-    // .subscribe(data => {
-    //   console.log('boardDetails', data);
-    //   sub.unsubscribe();
-
-    //   if (!data.name) {
-    //     this.createBoard(safeBoardId);
-    //   } else {
-    //     // TODO: Expose error or update safeBoardId
-    //   }
-    // });
   }
 
   createBoard(routeId: any) {
