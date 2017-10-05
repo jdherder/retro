@@ -13,8 +13,8 @@ import { DatabaseService } from '../../services/database.service';
 })
 export class BoardComponent implements OnInit, OnDestroy {
 
+  board: Schema.Board;
   routeId: string;
-  details: Schema.Details;
   lanes$: Observable<Schema.Lane[]>;
 
   private routerSub: Subscription;
@@ -42,12 +42,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.dataSub = this.db.getBoard(routeId)
       .subscribe(results => {
         const board = results[0];
-
-        this.details = {
-          name: board.name,
-          description: board.description,
-        }
-
+        this.board = board;
         this.lanes$ = this.db.getLanes(board.id);
       });
   }

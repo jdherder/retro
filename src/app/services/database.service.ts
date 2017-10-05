@@ -12,71 +12,51 @@ export class DatabaseService {
 
   constructor(
     private db: AngularFireDatabase,
-  ) {
-    // this.commentsRef.push({
-    //   id: this.uuid(),
-    //   laneId: 'b1f12d8e-a9db-11e7-abc4-cec278b6b50a',
-    //   boardId: '0008ec42-e3d8-4367-8635-d56c876d3902',
-    //   comment: 'Hey there! Hello World!',
-    //   likes: 4,
-    //   date: new Date().toISOString(),
-    // });
-    // this.commentsRef.push({
-    //   id: this.uuid(),
-    //   laneId: 'b1f12d8e-a9db-11e7-abc4-cec278b6b50a',
-    //   boardId: '0008ec42-e3d8-4367-8635-d56c876d3902',
-    //   comment: 'Hey there! Hello World!',
-    //   likes: 4,
-    //   date: new Date().toISOString(),
-    // });
-    // this.commentsRef.push({
-    //   id: this.uuid(),
-    //   laneId: 'b1f12d8e-a9db-11e7-abc4-cec278b6b50a',
-    //   boardId: '0008ec42-e3d8-4367-8635-d56c876d3902',
-    //   comment: 'Hey there! Hello World!',
-    //   likes: 4,
-    //   date: new Date().toISOString(),
-    // });
-  }
+  ) {}
 
   getBoard(routeId: string): Observable<Schema.Board[]> {
     return this.db.list(
       'boards',
       ref => ref.orderByChild('routeId').equalTo(routeId)
-    ).valueChanges();
+    )
+    .snapshotChanges()
+    .map(this.mapKeyToData);
   }
 
-  newBoard(routeId: string, name: string, description: string) {
+  newBoard(routeId: string, name: string, description: string): PromiseLike<any> {
     const boardId = this.uuid();
 
-    this.boardsRef.push({
+    /* TODO: Move actions like this to cloud functions ? */
+
+    return this.boardsRef.push({
       id: boardId,
       routeId,
       name,
       description,
-    });
-
-    /* TODO: Move actions like this to cloud functions ? */
-
-    this.lanesRef.push({
-      id: this.uuid(),
-      boardId,
-      name: 'What went well',
-      order: 0,
-    });
-
-    this.lanesRef.push({
-      id: this.uuid(),
-      boardId,
-      name: 'What didn\'t go well',
-      order: 1,
-    });
-
-    this.lanesRef.push({
-      id: this.uuid(),
-      boardId,
-      name: 'What we could improve',
-      order: 2,
+    })
+    .then(() => {
+      return this.lanesRef.push({
+        id: this.uuid(),
+        boardId,
+        name: 'What went well',
+        order: 0,
+      });
+    })
+    .then(() => {
+      return this.lanesRef.push({
+        id: this.uuid(),
+        boardId,
+        name: 'What didn\'t go well',
+        order: 1,
+      });
+    })
+    .then(() => {
+      return this.lanesRef.push({
+        id: this.uuid(),
+        boardId,
+        name: 'What we could improve',
+        order: 2,
+      });
     });
   }
 
@@ -84,14 +64,51 @@ export class DatabaseService {
     return this.db.list(
       'lanes',
       ref => ref.orderByChild('boardId').equalTo(boardId)
-    ).valueChanges();
+    )
+    .snapshotChanges()
+    .map(this.mapKeyToData);
   }
 
-  getComments(laneId: string): Observable<Schema.Comment[]> {
+  getCommentsByLane(laneId: string): Observable<Schema.Comment[]> {
     return this.db.list(
       'comments',
       ref => ref.orderByChild('laneId').equalTo(laneId)
-    ).valueChanges();
+    )
+    .snapshotChanges()
+    .map(this.mapKeyToData);
+  }
+
+  likeComment(comment: Schema.Comment) {
+    if (this.getLocal(comment.id)) {
+      return;
+    }
+
+    // TODO: Can firebase increment an integer field? Make a cloud function?
+    return this.db.list('comments')
+      .update(comment.$key, { likes: comment.likes + 1 })
+      .then(() => {
+        this.saveLocal(comment.id, true);
+      });
+  }
+
+  addComment(comment: string, lane: Schema.Lane): PromiseLike<any> {
+    return this.commentsRef.push({
+      id: this.uuid(),
+      laneId: lane.id,
+      boardId: lane.boardId,
+      comment: comment,
+      likes: 0,
+      date: new Date().toISOString(),
+    });
+  }
+
+  mapKeyToData(actions: any[]) {
+    return actions.map(action => {
+      return {
+        $key: action.key,
+        ...action.payload.val(),
+      };
+    });
   }
 
   uuid() {

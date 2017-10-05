@@ -19,7 +19,7 @@ export class SwimLaneComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.comments$ = this.db.getComments(this.lane.id);
+    this.comments$ = this.db.getCommentsByLane(this.lane.id);
   }
 
 }

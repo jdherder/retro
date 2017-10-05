@@ -19,7 +19,7 @@ export class CommentCardComponent implements OnInit {
   }
 
   like() {
-    console.log('LIKE');
+    this.db.likeComment(this.comment);
   }
 
 }

@@ -1,18 +1,15 @@
 namespace Schema {
 
   export interface Board {
+    readonly $key?: string;
     id: string; // uuid
     routeId: string;
     name: string;
     description: string;
   }
 
-  export interface Details {
-    name: string;
-    description: string;
-  }
-
   export interface Lane {
+    readonly $key?: string;
     id: string;
     boardId: string;
     name: string;
@@ -20,6 +17,7 @@ namespace Schema {
   }
 
   export interface Comment {
+    readonly $key?: string;
     id: string;
     laneId: string;
     boardId: string;

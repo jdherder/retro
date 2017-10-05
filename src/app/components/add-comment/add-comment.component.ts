@@ -11,8 +11,7 @@ import { DatabaseService } from '../../services/database.service';
   styleUrls: ['./add-comment.component.scss']
 })
 export class AddCommentComponent implements OnInit {
-  @Input() boardId: any;
-  @Input() laneKey: any;
+  @Input() lane: Schema.Lane;
 
   public addingComment: boolean = false;
   public comment: string = '';
@@ -24,23 +23,25 @@ export class AddCommentComponent implements OnInit {
   ngOnInit() {
   }
 
-  openCommentForm() {
-    this.addingComment = true;
+  toggleCommentForm() {
+    this.addingComment = !this.addingComment;
   }
 
   onSubmit() {
-    console.log('SUBMIT', this.comment);
+    if (!this.comment) {
+      return false;
+    }
 
-    // if (!this.comment) {
-    //   return false;
-    // }
-
-    // this.db.addComment(this.comment, {
-    //   boardId: this.boardId,
-    //   laneKey: this.laneKey,
-    // });
-
-    // this.resetForm();
+    this.db.addComment(this.comment, this.lane)
+      .then(
+        () => {
+          this.resetForm();
+        },
+        (error) => {
+          // TODO: Expose to user
+          console.error('Could not add comment!');
+        }
+      );
   }
 
   resetForm() {
