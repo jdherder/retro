@@ -1,18 +1,14 @@
 <div class="swim-lane">
-  <h3 class="swim-lane__title">{{laneValue.name}}</h3>
+  <h3 class="swim-lane__title">{{lane.name}}</h3>
 
   <div class="swim-lane__cards">
     <app-comment-card
-      *ngFor="let comment of commentKeyValuePairs"
-      [boardId]="boardId"
-      [laneKey]="laneKey"
-      [commentKey]="comment.key"
-      [commentValue]="comment.value">
+      *ngFor="let comment of comments$ | async"
+      [comment]="comment">
     </app-comment-card>
   </div>
 
   <app-add-comment
-    [boardId]="boardId"
-    [laneKey]="laneKey">
+    [lane]="lane">
   </app-add-comment>
 </div>

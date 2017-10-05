@@ -1,66 +1,117 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Schema } from '../interfaces/schema';
 
 @Injectable()
 export class DatabaseService {
 
+  private boardsRef: AngularFireList<Schema.Board> = this.db.list('/boards');
+  private lanesRef: AngularFireList<Schema.Lane> = this.db.list('/lanes');
+  private commentsRef: AngularFireList<Schema.Comment> = this.db.list('/comments');
+
   constructor(
     private db: AngularFireDatabase,
   ) {}
 
-  getBoard(boardId: any): Observable<any> {
-    return this.db.object(boardId);
+  getBoard(routeId: string): Observable<Schema.Board[]> {
+    return this.db.list(
+      'boards',
+      ref => ref.orderByChild('routeId').equalTo(routeId)
+    )
+    .snapshotChanges()
+    .map(this.mapKeyToData);
   }
 
-  getBoardDetails(boardId: any) {
-    return this.db.object(`${boardId}/details`);
-  }
+  newBoard(routeId: string, name: string, description: string): PromiseLike<any> {
+    const boardId = this.uuid();
 
-  newBoard(boardId: any, name: string, description: string) {
-    this.db.object(`${boardId}`)
-      .set(this.buildDefaultBoardData(name, description));
-  }
+    /* TODO: Move actions like this to cloud functions ? */
 
-  addComment(value: string, loc: Schema.DbLocation) {
-    this.db.object(`${loc.boardId}/lanes/${loc.laneKey}/comments/${this.guid()}`)
-      .set({
-        comment: value,
-        likes: 0,
-        date: new Date().toISOString(),
+    return this.boardsRef.push({
+      id: boardId,
+      routeId,
+      name,
+      description,
+    })
+    .then(() => {
+      return this.lanesRef.push({
+        id: this.uuid(),
+        boardId,
+        name: 'What went well',
+        order: 0,
       });
-  }
-
-  setCommentLikes(value: number, loc: Schema.DbLocation) {
-    const hasLiked = this.getLocal(loc.commentKey);
-
-    if (hasLiked) {
-      return;
-    }
-
-    this.db.object(`${loc.boardId}/lanes/${loc.laneKey}/comments/${loc.commentKey}`)
-      .update({ likes: value });
-      
-    this.saveLocal(loc.commentKey, true);
-  }
-
-  keyValueObj(data: Object) {
-    if (!data) {
-      return [];
-    }
-
-    const keys = Object.keys(data);
-    
-    return keys.map((key) => {
-      return {
-        key,
-        value: data[key],
-      }
+    })
+    .then(() => {
+      return this.lanesRef.push({
+        id: this.uuid(),
+        boardId,
+        name: 'What didn\'t go well',
+        order: 1,
+      });
+    })
+    .then(() => {
+      return this.lanesRef.push({
+        id: this.uuid(),
+        boardId,
+        name: 'What we could improve',
+        order: 2,
+      });
     });
   }
 
-  guid() {
+  getLanes(boardId: string): Observable<Schema.Lane[]> {
+    return this.db.list(
+      'lanes',
+      ref => ref.orderByChild('boardId').equalTo(boardId)
+    )
+    .snapshotChanges()
+    .map(this.mapKeyToData);
+  }
+
+  getCommentsByLane(laneId: string): Observable<Schema.Comment[]> {
+    return this.db.list(
+      'comments',
+      ref => ref.orderByChild('laneId').equalTo(laneId)
+    )
+    .snapshotChanges()
+    .map(this.mapKeyToData);
+  }
+
+  likeComment(comment: Schema.Comment) {
+    if (this.getLocal(comment.id)) {
+      return;
+    }
+
+    // TODO: Can firebase increment an integer field? Make a cloud function?
+    return this.db.list('comments')
+      .update(comment.$key, { likes: comment.likes + 1 })
+      .then(() => {
+        this.saveLocal(comment.id, true);
+      });
+  }
+
+  addComment(comment: string, lane: Schema.Lane): PromiseLike<any> {
+    return this.commentsRef.push({
+      id: this.uuid(),
+      laneId: lane.id,
+      boardId: lane.boardId,
+      comment: comment,
+      likes: 0,
+      date: new Date().toISOString(),
+    });
+  }
+
+  mapKeyToData(actions: any[]) {
+    return actions.map(action => {
+      return {
+        $key: action.key,
+        ...action.payload.val(),
+      };
+    });
+  }
+
+  uuid() {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
@@ -69,29 +120,6 @@ export class DatabaseService {
 
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
       s4() + '-' + s4() + s4() + s4();
-  }
-
-  buildDefaultBoardData(name: string, description: string) {
-    return {
-      details: {
-        name,
-        description,
-      },
-      lanes: {
-        [this.guid()]: {
-          name: 'What went well',
-          order: 0,
-        },
-        [this.guid()]: {
-          name: 'What didn\'t go well',
-          order: 1,
-        },
-        [this.guid()]: {
-          name: 'What we could improve',
-          order: 2,
-        },
-      }
-    };
   }
 
   makeSafeName(name) {

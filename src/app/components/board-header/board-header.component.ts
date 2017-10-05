@@ -7,7 +7,7 @@ import { Schema } from '../../interfaces/schema';
   styleUrls: ['./board-header.component.scss']
 })
 export class BoardHeaderComponent implements OnInit {
-  @Input() details: Schema.Details;
+  @Input() board: Schema.Board;
 
   constructor() { }
 

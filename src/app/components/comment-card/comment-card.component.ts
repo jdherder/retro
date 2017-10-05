@@ -9,10 +9,7 @@ import { DatabaseService } from '../../services/database.service';
   styleUrls: ['./comment-card.component.scss']
 })
 export class CommentCardComponent implements OnInit {
-  @Input() boardId: any;
-  @Input() laneKey: any;
-  @Input() commentKey: any;
-  @Input() commentValue: Schema.CommendCard;
+  @Input() comment: Schema.Comment;
 
   constructor(
     private db: DatabaseService,
@@ -22,12 +19,7 @@ export class CommentCardComponent implements OnInit {
   }
 
   like() {
-    const newValue = this.commentValue.likes + 1;
-    this.db.setCommentLikes(newValue, {
-      boardId: this.boardId,
-      laneKey: this.laneKey,
-      commentKey: this.commentKey
-    });
+    this.db.likeComment(this.comment);
   }
 
 }
