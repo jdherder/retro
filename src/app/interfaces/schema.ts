@@ -27,6 +27,13 @@ namespace Schema {
     likes: number;
     date: string; // ISO
   }
+
+  export interface Board {
+    id: string; // uuid
+    url: string;
+    name: string;
+    description: string;
+  }
   
 }
 

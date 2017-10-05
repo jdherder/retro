@@ -37,12 +37,16 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   loadData(id: any) {
-    this.dbSub = this.db.getBoard(id)
-      .subscribe(data => {
-        console.log('board data', data);
-        this.details = data.details;
-        this.laneKeyValuePairs = this.db.keyValueObj(data.lanes);
-      });
+    // this.dbSub = this.db.getBoard(id)
+    //   .subscribe(data => {
+    //     console.log('board data', data);
+    //     this.details = data.details;
+    //     this.laneKeyValuePairs = this.db.keyValueObj(data.lanes);
+    //   });
+
+    this.db.getBoard(id).subscribe(data => {
+      console.log('sub', data);
+    });
   }
 
   trackByFn(index, item) {
