@@ -20,7 +20,7 @@ export class DatabaseService {
       ref => ref.orderByChild('routeId').equalTo(routeId)
     )
     .snapshotChanges()
-    .map(this.mapKeyToData);
+    .map(this.mapKeyToDataList);
   }
 
   newBoard(routeId: string, name: string, description: string): PromiseLike<any> {
@@ -66,7 +66,7 @@ export class DatabaseService {
       ref => ref.orderByChild('boardId').equalTo(boardId)
     )
     .snapshotChanges()
-    .map(this.mapKeyToData);
+    .map(this.mapKeyToDataList);
   }
 
   getCommentsByLane(laneId: string): Observable<Schema.Comment[]> {
@@ -75,7 +75,7 @@ export class DatabaseService {
       ref => ref.orderByChild('laneId').equalTo(laneId)
     )
     .snapshotChanges()
-    .map(this.mapKeyToData);
+    .map(this.mapKeyToDataList);
   }
 
   likeComment(comment: Schema.Comment) {
@@ -102,7 +102,7 @@ export class DatabaseService {
     });
   }
 
-  mapKeyToData(actions: any[]) {
+  mapKeyToDataList(actions: any[]) {
     return actions.map(action => {
       return {
         $key: action.key,
@@ -112,7 +112,7 @@ export class DatabaseService {
   }
 
   uuid() {
-    function s4() {
+    const s4 = () => {
       return Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
         .substring(1);
