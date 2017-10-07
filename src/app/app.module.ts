@@ -27,6 +27,7 @@ import { CommentCardComponent } from './components/comment-card/comment-card.com
 import { AddCommentComponent } from './components/add-comment/add-comment.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { NewBoardComponent } from './components/new-board/new-board.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { NewBoardComponent } from './components/new-board/new-board.component';
     CommentCardComponent,
     AddCommentComponent,
     PageNotFoundComponent,
-    NewBoardComponent
+    NewBoardComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

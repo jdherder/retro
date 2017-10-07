@@ -5,6 +5,7 @@ import { RouterModule, Routes }  from '@angular/router';
 import { BoardComponent } from './components/board/board.component';
 import { NewBoardComponent } from './components/new-board/new-board.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { LoginComponent } from './components/login/login.component';
 
 // Services
 // import { AuthGuard } from './services/auth-guard.service';
@@ -23,6 +24,10 @@ const parkRoutes: Routes = [
     // resolve: {
     //   isAuth: AuthGuard,
     // },
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
   },
   {
     path: '',
