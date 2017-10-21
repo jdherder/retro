@@ -9,12 +9,14 @@ import { environment } from '../environments/environment';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/take';
 
 // Routing
 import { AppRouting } from './app.routing';
 
 // Services
 import { DatabaseService } from './services/database.service';
+import { AuthService } from './services/auth.service';
 
 // Pipes
 
@@ -50,7 +52,8 @@ import { LoginComponent } from './components/login/login.component';
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
   ],
   providers: [
-    DatabaseService
+    DatabaseService,
+    AuthService
   ],
   bootstrap: [
     AppComponent

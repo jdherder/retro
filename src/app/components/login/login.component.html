@@ -1,10 +1,71 @@
 <div class="login full-page-splash">
-  <div *ngIf="afAuth.authState | async; let user; else showLogin">
+  <!-- <div *ngIf="afAuth.authState | async; let user; else showLogin">
     <h1>Hello {{ user.displayName }}!</h1>
     <button (click)="logout()">Logout</button>
   </div>
   <ng-template #showLogin>
     <p>Please login.</p>
     <button (click)="login()">Login with Google</button>
-  </ng-template>
+  </ng-template> -->
+
+  <img class="logo" src="../../../assets/logo.svg">
+
+  <h1 *ngIf="authService.user | async">Welcome {{ (authService.user | async)?.email }}!</h1>
+  
+  <div class="login-box" *ngIf="!(authService.user | async)">
+    <div class="login-box__tabs">
+      <div class="login-box__tab"
+        [ngClass]="{active: state === 'signup'}"
+        (click)="changeState('signup')">
+        Sign up
+      </div>
+      <div class="login-box__tab"
+        [ngClass]="{active: state === 'login'}"
+        (click)="changeState('login')">
+        Login
+      </div>
+    </div>
+
+    <div class="login-box__content">
+      <p class="login-box__label">email</p>
+      <input class="login-box__input input-field" type="text" [(ngModel)]="email">
+  
+      <p class="login-box__label">password</p>
+      <input class="login-box__input input-field" type="password" [(ngModel)]="password">
+
+      <div *ngIf="error" class="login-box__errors">
+        {{ errorMsg }}
+      </div>
+  
+      <div class="action-container">
+        <button
+          class="btn btn--white"
+          *ngIf="state === 'signup'"
+          (click)="signup()"
+          [disabled]="!email || !password">
+          Signup
+        </button>
+      
+        <button
+          class="btn btn--white"
+          *ngIf="state === 'login'"
+          (click)="login()"
+          [disabled]="!email || !password">
+          Login
+        </button>
+    
+        <a
+          class="btn-link btn-link--light"
+          *ngIf="state === 'login'"
+          (click)="forgotPassword()">
+          Forgot Password
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <button class="btn btn--inverse" (click)="logout()" *ngIf="authService.user | async">
+    Logout
+  </button>
+
 </div>

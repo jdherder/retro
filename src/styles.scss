@@ -30,9 +30,14 @@ html, body {
   width: 100vw;
 }
 
+.logo {
+  margin: unit(25);
+  width: unit(150);
+}
+
 .btn {
   background: $accent-bold;
-  border: 0;
+  border: 1px solid $accent-bold;
   color: $accent-light;
   cursor: pointer;
   font-size: unit(16);
@@ -40,24 +45,57 @@ html, body {
   line-height: unit(40);
   overflow: visible;
   padding: 0 unit(10);
+  transition: background 0.25s ease;
 
   &:hover {
-    background: $neutral-dark;
-    color: $neutral-light;
+    border: 1px solid $accent-bold;
+    background: white;
+    color: $accent-bold;
+  }
+
+  &:disabled {
+    opacity: 0.25;
   }
 
   &.btn--inverse {
     background: $accent-light;
+    border: 1px solid $accent-light;
     color: $accent-bold;
 
     &:hover {
       background: $neutral-light;
+      border: 1px solid $accent-light;
       color: $neutral-dark;
+    }
+  }
+
+  &.btn--white {
+    background: white;
+    border: 1px solid $accent-bold;
+    color: $accent-bold;
+
+    &:hover {
+      background: $accent-bold;
+      border: 1px solid $accent-bold;
+      color: white;
     }
   }
 }
 
+.btn-link {
+  color: $accent-bold;
+  cursor: pointer;
+  display: block;
+  padding: 0 unit(10);
+
+  &.btn-link--light {
+    color: $neutral-light;
+  }
+}
+
 .input-field {
+  border: 1px solid $neutral-light;
   height: unit(40);
+  padding: unit(5);
   outline: none;
 }
