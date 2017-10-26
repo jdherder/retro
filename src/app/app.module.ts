@@ -16,7 +16,7 @@ import { AppRouting } from './app.routing';
 
 // Services
 import { DatabaseService } from './services/database.service';
-import { AuthService } from './services/auth.service';
+import { AuthService }     from './services/auth.service';
 
 // Pipes
 
