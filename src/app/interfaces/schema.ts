@@ -25,7 +25,7 @@ namespace Schema {
     likes: number;
     date: string; // ISO
   }
-  
+
 }
 
-export { Schema }
+export { Schema };

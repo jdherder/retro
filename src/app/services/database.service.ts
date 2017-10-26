@@ -116,7 +116,7 @@ export class DatabaseService {
       return Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
         .substring(1);
-    }
+    };
 
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
       s4() + '-' + s4() + s4() + s4();
@@ -124,9 +124,9 @@ export class DatabaseService {
 
   makeSafeName(name) {
     return name.replace(/[^a-z0-9]/g, (s) => {
-      let c = s.charCodeAt(0);
-      if (c == 32) return '-';
-      if (c >= 65 && c <= 90) return s.toLowerCase();
+      const c = s.charCodeAt(0);
+      if (c === 32) { return '-'; }
+      if (c >= 65 && c <= 90) { return s.toLowerCase(); }
       return '';
     });
   }

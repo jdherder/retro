@@ -27,7 +27,7 @@ export class SwimLaneComponent implements OnInit {
     if (a.likes < b.likes) {
       return 1;
     }
-    
+
     if (a.likes > b.likes) {
       return -1;
     }

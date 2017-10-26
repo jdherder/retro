@@ -19,7 +19,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   private routerSub: Subscription;
   private dataSub: Subscription;
-  
+
   constructor(
     private route: ActivatedRoute,
     private db: DatabaseService,

@@ -9,8 +9,8 @@ import { DatabaseService } from '../../services/database.service';
 })
 export class NewBoardComponent implements OnInit {
 
-  public boardName: string = '';
-  public boardDesc: string = '';
+  public boardName: string;
+  public boardDesc: string;
 
   constructor(
     private router: Router,

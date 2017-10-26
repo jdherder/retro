@@ -14,7 +14,7 @@ export class AuthService {
   signup(email: string, password: string) {
     return this.firebaseAuth
       .auth
-      .createUserWithEmailAndPassword(email, password); 
+      .createUserWithEmailAndPassword(email, password);
   }
 
   login(email: string, password: string) {
@@ -24,7 +24,7 @@ export class AuthService {
   }
 
   forgotPassword(email: string) {
-    return this.firebaseAuth.auth.sendPasswordResetEmail(email)
+    return this.firebaseAuth.auth.sendPasswordResetEmail(email);
   }
 
   logout() {
@@ -36,5 +36,4 @@ export class AuthService {
   uid() {
     return this.user.map(user => user.uid);
   }
-
 }

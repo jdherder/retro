@@ -8,11 +8,11 @@ import { FirebaseError } from 'firebase/app';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  email: string = '';
-  password: string = '';
+  email: string;
+  password: string;
   state: string = 'login';
-  error: boolean = false;
-  errorMsg: string = '';
+  error: boolean;
+  errorMsg: string;
 
   constructor(public authService: AuthService) {
 
