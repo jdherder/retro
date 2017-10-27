@@ -1,0 +1,22 @@
+{
+  "rules": {
+    ".read": "true",
+    ".write": "true",
+    "boards": {
+      ".indexOn": "routeId"
+    },
+    "lanes": {
+      ".indexOn": [
+        "id",
+        "boardId"
+      ]
+    },
+    "comments": {
+      ".indexOn": [
+        "id",
+        "laneId",
+        "boardId"
+      ]
+    }
+  }
+}

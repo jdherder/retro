@@ -1,8 +1,22 @@
 language: node_js
-sudo: false
 node_js:
   - "lts/*"
-install:
-  - npm install
+
+branches:
+  only:
+    - master
+
+before_script:
+  - npm install -g firebase-tools
+  - npm install -g @angular/cli
+
 script:
-  - npm run lint
+  - ng build
+
+after_success:
+  - firebase deploy --token $FIREBASE_TOKEN
+
+notifications:
+  email:
+    on_failure: change
+    on_success: change
