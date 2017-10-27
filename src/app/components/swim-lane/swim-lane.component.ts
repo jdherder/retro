@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs/observable';
+import { Observable } from 'rxjs/Observable';
 import { Schema } from '../../interfaces/schema';
 
 import { DatabaseService } from '../../services/database.service';

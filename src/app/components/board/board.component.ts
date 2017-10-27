@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy  } from '@angular/core';
-import { Observable } from 'rxjs/observable';
-import { Subscription } from 'rxjs/subscription';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
 import { Schema } from '../../interfaces/schema';
 
