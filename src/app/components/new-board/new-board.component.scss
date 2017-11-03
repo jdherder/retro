@@ -7,15 +7,11 @@
 }
 
 .new-board__form {
-  width: 100%;
-
-  @include media-min-md {
-    max-width: unit(300);
-  }
+  padding: unit($std-pad * 2);
 }
 
 .new-board__row {
-  padding: unit(10);
+  padding: unit(10) 0;
 }
 
 .new-board__text {

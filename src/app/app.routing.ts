@@ -31,7 +31,7 @@ const parkRoutes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'board',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {

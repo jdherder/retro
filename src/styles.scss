@@ -1,6 +1,7 @@
 //scss imports (no css output)
 @import './scss/vars';
 @import './scss/functions';
+@import './scss/mixins';
 
 //resets
 @import './scss/normalize';
@@ -98,4 +99,22 @@ html, body {
   height: unit(40);
   padding: unit(5);
   outline: none;
+}
+
+.form__label {
+  color: $accent-bold;
+  font-size: unit(12);
+  margin: 0;
+  padding: 0;
+}
+
+.box {
+  background-color: white;
+  width: 94%;
+  @include std-box-shadow;
+
+  @include media-min-sm() {
+    width: unit(400);
+  }
+
 }

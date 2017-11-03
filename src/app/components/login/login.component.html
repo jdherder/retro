@@ -12,7 +12,7 @@
 
   <h1 *ngIf="authService.user | async">Welcome {{ (authService.user | async)?.email }}!</h1>
   
-  <div class="login-box" *ngIf="!(authService.user | async)">
+  <div class="box login-box" *ngIf="!(authService.user | async)">
     <div class="login-box__tabs">
       <div class="login-box__tab"
         [ngClass]="{active: state === 'signup'}"
@@ -27,11 +27,11 @@
     </div>
 
     <div class="login-box__content">
-      <p class="login-box__label">email</p>
-      <input class="login-box__input input-field" type="text" [(ngModel)]="email">
+      <label for="email" class="form__label">email</label>
+      <input name="email" class="login-box__input input-field" type="text" [(ngModel)]="email">
   
-      <p class="login-box__label">password</p>
-      <input class="login-box__input input-field" type="password" [(ngModel)]="password">
+      <label for="password" class="form__label">password</label>
+      <input name="password" class="login-box__input input-field" type="password" [(ngModel)]="password">
 
       <div *ngIf="error" class="login-box__errors">
         {{ errorMsg }}

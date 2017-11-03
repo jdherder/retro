@@ -7,13 +7,6 @@
 }
 
 .login-box {
-  background-color: white;
-  width: 94%;
-  @include std-box-shadow;
-
-  @include media-min-sm() {
-    width: unit(400);
-  }
 
   &__tabs {
     border-bottom: 1px solid $neutral-light;
@@ -44,14 +37,7 @@
   }
 
   &__content {
-    padding: unit(40);
-  }
-
-  &__label {
-    color: $accent-bold;
-    font-size: unit(12);
-    margin: 0;
-    padding: 0;
+    padding: unit($std-pad * 2);
   }
 
   &__input {

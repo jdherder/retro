@@ -4,26 +4,26 @@
 
   <p>Ready to get retrospective? Start a new board!</p>
 
-  <div class="new-board__form">
-    <form #newBoardForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="box">
+    <form class="new-board__form" #newBoardForm="ngForm" (ngSubmit)="onSubmit()">
       <div class="new-board__row">
+        <label for="board" class="form__label">Board Name</label>
         <input
           [(ngModel)]="boardName"
           type="text"
           name="board"
-          placeholder="Name"
           class="new-board__text input-field">
       </div>
       <div class="new-board__row">
+        <label for="boardDesc" class="form__label">Description</label>
         <input
           [(ngModel)]="boardDesc"
           type="text"
           name="boardDesc"
-          placeholder="Description"
           class="new-board__text input-field">
       </div>
       <div class="new-board__row">
-        <button class="btn btn--inverse new-board__submit" type="submit">Start</button>
+        <button class="btn new-board__submit" type="submit">Start</button>
       </div>
     </form>
   </div>

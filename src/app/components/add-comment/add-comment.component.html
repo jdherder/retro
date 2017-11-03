@@ -5,7 +5,12 @@
 
   <div *ngIf="addingComment" class="add-comment__form">
     <form #commentForm="ngForm" (ngSubmit)="onSubmit()">
-      <textarea [(ngModel)]="comment" name="comment" class="add-comment__textarea"></textarea>
+      <textarea
+        [(ngModel)]="comment"
+        name="comment"
+        class="add-comment__textarea"
+        maxlength="255">
+      </textarea>
       <button class="btn add-comment__submit" type="submit">Add</button>
       <button (click)="resetForm()" class="btn add-comment__cancel">Cancel</button>
     </form>
