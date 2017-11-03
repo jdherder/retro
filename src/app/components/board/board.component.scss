@@ -7,9 +7,12 @@
 }
 
 .board__swim-lanes {
-  display: flex;
-  justify-content: space-between;
   padding: unit($std-pad);
+
+  @include media-min-md() {
+    display: flex;
+    justify-content: space-between;
+  }
 
   app-swim-lane {
     flex: 1;
