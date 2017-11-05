@@ -88,6 +88,8 @@ html, body {
   cursor: pointer;
   display: block;
   padding: 0 unit(10);
+  background-color: transparent;
+  border: none;
 
   &.btn-link--med {
     color: $neutral-med;

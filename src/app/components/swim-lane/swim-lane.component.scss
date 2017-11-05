@@ -4,12 +4,88 @@
 
 .swim-lane {
   border: 1px solid $neutral-dark;
+  position: relative;
+}
+
+.swim-lane__header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 unit($std-pad) 0;
+
+  .toggle {
+    width: unit(12);
+    margin-right: unit(12);
+
+    @include media-min-md() {
+      display: none;
+    }
+  }
 }
 
 .swim-lane__title {
-  padding: 0 unit($std-pad) 0;
+  
+}
+
+.swim-lane__count {
+  background-color: $neutral-dark;
+  color: white;
+  width: unit(24);
+  height: unit(24);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: unit(12);
+
+  @include media-min-md() {
+    display: none;
+  }
 }
 
 .swim-lane__cards {
+  height: 0;
+  overflow: hidden;
 
+  @include media-min-md() {
+    height: auto;
+  }
+
+  &--mobile-open {
+    height: auto;
+  }
+}
+
+.add-comment {
+  cursor: pointer;
+  background-color: white;
+  padding: unit(3);
+  position: absolute;
+  top: unit(-15);
+  right: unit(5);
+  width: unit(30);
+}
+
+.comment-entry {
+
+  &__title {
+    text-align: center;
+  }
+
+  &__form {
+    padding: unit($std-pad);
+  }
+
+  &__textarea {
+    width: 100%;
+    height: unit(100);
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+
+    .btn {
+      margin: unit($std-pad);
+    }
+  }
 }

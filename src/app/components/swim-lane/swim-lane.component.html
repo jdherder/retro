@@ -1,14 +1,35 @@
 <div class="swim-lane">
-  <h3 class="swim-lane__title">{{lane.name}}</h3>
+  <div class="swim-lane__header" (click)="toggleCardsMobileDisplay()">
+    <img alt="Expand / Collapse" title="Expand / Collapse" class="toggle" src="../../../assets/icons/down-chevron.svg" />
+    <!-- <div class="swim-lane__count">{{ (comments$ | async)?.length }}</div> -->
+    <h3 class="swim-lane__title">{{lane.name}}</h3>
+  </div>
 
-  <div class="swim-lane__cards">
+  <img (click)="addComment()" alt="Add comment" title="Add comment" class="add-comment" src="../../../assets/icons/plus.svg" />
+
+  <div class="swim-lane__cards" [ngClass]="{'swim-lane__cards--mobile-open': cardsMobileDisplay}">
     <app-comment-card
       *ngFor="let comment of comments$ | async"
       [comment]="comment">
     </app-comment-card>
   </div>
-
-  <app-add-comment
-    [lane]="lane">
-  </app-add-comment>
 </div>
+
+<app-modal class="comment-entry" [open]="addingComment" (closeAction)="cancelComment()">
+
+  <!-- TODO: Re-componitize -->
+  <form class="box comment-entry__form" #commentForm="ngForm" (ngSubmit)="submitComment()">
+    <h3 class="comment-entry__title">{{lane.name}}</h3>
+
+    <textarea
+      [(ngModel)]="comment"
+      name="comment"
+      class="comment-entry__textarea"
+      maxlength="255">
+    </textarea>
+    <div class="comment-entry__actions">
+      <button class="btn comment-entry__submit" type="submit">Add</button>
+      <button (click)="resetForm()" class="btn-link btn-link--med comment-entry__cancel">Cancel</button>
+    </div>
+  </form>
+</app-modal>

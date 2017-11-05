@@ -30,6 +30,7 @@ import { AddCommentComponent } from './components/add-comment/add-comment.compon
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { NewBoardComponent } from './components/new-board/new-board.component';
 import { LoginComponent } from './components/login/login.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { LoginComponent } from './components/login/login.component';
     PageNotFoundComponent,
     NewBoardComponent,
     LoginComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
