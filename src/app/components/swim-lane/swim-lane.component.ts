@@ -38,7 +38,7 @@ export class SwimLaneComponent implements OnInit {
     return 0;
   }
 
-  toggleCardsMobileDisplay(force: boolean) {
+  toggleCardsMobileDisplay(force?: boolean) {
     if (force !== undefined) {
       this.cardsMobileDisplay = force;
       return;
