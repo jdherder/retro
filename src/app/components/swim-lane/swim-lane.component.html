@@ -22,11 +22,17 @@
     <h3 class="comment-entry__title">{{lane.name}}</h3>
 
     <textarea
+      #commentEl
       [(ngModel)]="comment"
       name="comment"
       class="comment-entry__textarea"
-      maxlength="255">
+      [maxlength]="commentMaxChars">
     </textarea>
+
+    <div class="comment-entry__character-count">
+      <span>{{ commentEl.value.length }}</span> / <span>{{ commentMaxChars }}</span>
+    </div>
+
     <div class="comment-entry__actions">
       <button class="btn comment-entry__submit" type="submit">Add</button>
       <button (click)="resetForm()" class="btn-link btn-link--med comment-entry__cancel">Cancel</button>

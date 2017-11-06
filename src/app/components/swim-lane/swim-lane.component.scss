@@ -80,6 +80,11 @@
     height: unit(100);
   }
 
+  &__character-count {
+    text-align: center;
+    color: $neutral-light;
+  }
+
   &__actions {
     display: flex;
     justify-content: center;

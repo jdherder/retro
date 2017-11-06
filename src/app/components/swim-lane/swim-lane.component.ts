@@ -16,6 +16,8 @@ export class SwimLaneComponent implements OnInit {
   public comments$: Observable<Schema.Comment[]>;
   public addingComment: boolean = false;
   public comment: string = '';
+  public commentChars: number = 0;
+  public commentMaxChars: number = 180;
 
   constructor(
     private db: DatabaseService,
