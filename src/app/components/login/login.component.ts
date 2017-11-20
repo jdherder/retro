@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FirebaseError } from 'firebase/app';
 
@@ -14,7 +15,10 @@ export class LoginComponent {
   error: boolean;
   errorMsg: string;
 
-  constructor(public authService: AuthService) {
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+  ) {
 
   }
 
@@ -33,6 +37,7 @@ export class LoginComponent {
     this.clearError();
     this.authService.login(this.email, this.password)
       .then(() => this.email = this.password = '')
+      .then(() => this.router.navigate([`/board`]))
       .catch(e => this.setError(e));
   }
 

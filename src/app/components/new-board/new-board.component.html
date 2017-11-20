@@ -22,8 +22,14 @@
           name="boardDesc"
           class="new-board__text input-field">
       </div>
+      <div class="new-board__row" *ngIf="user">
+          <div class="form__label new-board__user">Board owner: {{user.email}}</div>
+      </div>
       <div class="new-board__row">
         <button class="btn new-board__submit" type="submit">Start</button>
+      </div>
+      <div class="new-board__error" *ngIf="errorBoardExists">
+        This board name already exists.
       </div>
     </form>
   </div>

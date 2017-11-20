@@ -6,6 +6,7 @@ namespace Schema {
     routeId: string;
     name: string;
     description: string;
+    uid: string;
   }
 
   export interface Lane {

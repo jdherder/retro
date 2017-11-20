@@ -24,7 +24,9 @@ export class AuthService {
   }
 
   forgotPassword(email: string) {
-    return this.firebaseAuth.auth.sendPasswordResetEmail(email);
+    return this.firebaseAuth
+      .auth
+      .sendPasswordResetEmail(email);
   }
 
   logout() {

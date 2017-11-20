@@ -23,7 +23,7 @@ export class DatabaseService {
     .map(this.mapKeyToDataList);
   }
 
-  newBoard(routeId: string, name: string, description: string): PromiseLike<any> {
+  newBoard(routeId: string, name: string, description: string, uid: string): PromiseLike<any> {
     const boardId = this.uuid();
 
     /* TODO: Move actions like this to cloud functions ? */
@@ -33,6 +33,7 @@ export class DatabaseService {
       routeId,
       name,
       description,
+      uid,
     })
     .then(() => {
       return this.lanesRef.push({
